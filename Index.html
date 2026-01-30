@@ -1,220 +1,189 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="id">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.3">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; -webkit-text-stroke: #000000}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; -webkit-text-stroke: #000000; min-height: 14.0px}
-    span.s1 {font-kerning: none}
-    span.s2 {font: 12.0px 'Apple Color Emoji'; font-kerning: none}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roti Bakar POS - Cloud Edition</title>
+    <style>
+        :root { --primary: #d2691e; --dark: #5d4037; --bg: #f0f2f5; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg); margin: 20px; color: #333; }
+        .container { max-width: 900px; margin: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        h2, h3 { color: var(--dark); border-bottom: 2px solid var(--primary); padding-bottom: 8px; margin-top: 0; }
+        
+        .menu-grid { display: grid; gap: 10px; margin-bottom: 20px; }
+        .btn-menu { background: #fff8f0; border: 1px solid var(--primary); padding: 12px; border-radius: 8px; cursor: pointer; display: flex; justify-content: space-between; font-size: 1rem; }
+        .btn-menu:hover { background: var(--primary); color: white; }
+        
+        .pembayaran { background: #fff3e0; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+        input, select { width: 100%; padding: 10px; margin: 5px 0 10px; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box; }
+
+        .struk-preview { background: #fff; border: 1px dashed #999; padding: 15px; font-family: monospace; min-height: 200px; font-size: 0.9rem; }
+        .report-box { background: #2c3e50; color: white; padding: 20px; border-radius: 8px; margin-top: 20px; grid-column: span 2; }
+        .report-grid { display: grid; grid-template-columns: repeat(3, 1fr); text-align: center; gap: 10px; }
+        
+        .btn-action { width: 100%; padding: 12px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 1rem; }
+        .btn-print { background: #27ae60; color: white; }
+        .btn-clear-data { background: #95a5a6; color: white; margin-top: 20px; font-size: 0.8rem; padding: 5px; }
+
+        @media print {
+            body * { visibility: hidden; }
+            #area-cetak, #area-cetak * { visibility: visible; }
+            #area-cetak { position: absolute; left: 0; top: 0; width: 100%; border: none; }
+        }
+        @media (max-width: 768px) { .container { grid-template-columns: 1fr; } .report-box { grid-column: span 1; } }
+    </style>
 </head>
 <body>
-<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
-<p class="p1"><span class="s1">&lt;html lang="id"&gt;</span></p>
-<p class="p1"><span class="s1">&lt;head&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;title&gt;Roti Bakar POS + Laporan&lt;/title&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;style&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; margin: 20px; color: #333; }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.container { max-width: 900px; margin: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>h2, h3 { color: #5d4037; border-bottom: 2px solid #d2691e; padding-bottom: 8px; margin-top: 0; }</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>/* UI Kasir */</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.menu-grid { display: grid; gap: 10px; margin-bottom: 20px; }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.btn-menu { background: #fff8f0; border: 1px solid #d2691e; padding: 10px; border-radius: 8px; cursor: pointer; display: flex; justify-content: space-between; }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.btn-menu:hover { background: #d2691e; color: white; }</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.pembayaran { background: #fff3e0; padding: 15px; border-radius: 8px; margin-bottom: 15px; }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>input, select { width: 100%; padding: 8px; margin: 5px 0 10px; border-radius: 5px; border: 1px solid #ccc; }</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>/* Struk &amp; Laporan */</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.struk-preview { background: #fafafa; border: 1px dashed #999; padding: 15px; font-family: monospace; min-height: 200px; }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.report-box { background: #2c3e50; color: white; padding: 15px; border-radius: 8px; margin-top: 20px; grid-column: span 2; }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.report-grid { display: flex; justify-content: space-around; text-align: center; }</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.btn-action { width: 100%; padding: 12px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.btn-print { background: #27ae60; color: white; }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.btn-reset { background: #e74c3c; color: white; }</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>@media print {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>body * { visibility: hidden; }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>#area-cetak, #area-cetak * { visibility: visible; }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>#area-cetak { position: absolute; left: 0; top: 0; width: 100%; }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>@media (max-width: 768px) { .container { grid-template-columns: 1fr; } .report-box { grid-column: span 1; } }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
-<p class="p1"><span class="s1">&lt;body&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">&lt;div class="container"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="card"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;h2&gt;</span><span class="s2">🍞</span><span class="s1"> Input Pesanan&lt;/h2&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="pembayaran"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;small&gt;Topping Tambahan:&lt;/small&gt;&lt;br&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;label&gt;&lt;input type="checkbox" class="topping" value="3000" data-name="Keju"&gt; Keju (+3k)&lt;/label&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;label style="margin-left:10px;"&gt;&lt;input type="checkbox" class="topping" value="2000" data-name="Susu"&gt; Susu (+2k)&lt;/label&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="menu-grid"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;button class="btn-menu" onclick="tambahItem('Roti Cokelat', 15000)"&gt;&lt;span&gt;Roti Cokelat&lt;/span&gt; &lt;b&gt;15k&lt;/b&gt;&lt;/button&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;button class="btn-menu" onclick="tambahItem('Roti Keju', 17000)"&gt;&lt;span&gt;Roti Keju&lt;/span&gt; &lt;b&gt;17k&lt;/b&gt;&lt;/button&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;button class="btn-menu" onclick="tambahItem('Roti Spesial', 25000)"&gt;&lt;span&gt;Roti Spesial&lt;/span&gt; &lt;b&gt;25k&lt;/b&gt;&lt;/button&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="pembayaran"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;label&gt;Metode Pembayaran:&lt;/label&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;select id="metode" onchange="hitungSemua()"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;option value="Tunai"&gt;Tunai&lt;/option&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;option value="QRIS"&gt;QRIS&lt;/option&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/select&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;label id="label-bayar"&gt;Uang Tunai Diterima:&lt;/label&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;input type="number" id="uang-bayar" placeholder="0" oninput="hitungSemua()"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;button class="btn-action btn-reset" onclick="resetTransaksi()"&gt;Hapus Pesanan&lt;/button&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="card"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;h2&gt;</span><span class="s2">🧾</span><span class="s1"> Struk Belanja&lt;/h2&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div id="area-cetak" class="struk-preview"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div style="text-align:center"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;strong&gt;ROTI BAKAR MANTAP&lt;/strong&gt;&lt;br&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;small id="waktu-struk"&gt;-&lt;/small&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;hr&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div id="item-list"&gt;&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;hr&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div style="text-align:right"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>TOTAL: &lt;strong id="total-text"&gt;Rp 0&lt;/strong&gt;&lt;br&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>Metode: &lt;span id="metode-text"&gt;Tunai&lt;/span&gt;&lt;br&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>Bayar: &lt;span id="bayar-text"&gt;0&lt;/span&gt;&lt;br&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>Kembali: &lt;strong id="kembali-text"&gt;0&lt;/strong&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;button class="btn-action btn-print" onclick="selesaikanTransaksi()"&gt;Selesaikan &amp; Cetak&lt;/button&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="report-box"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;h3&gt;</span><span class="s2">📊</span><span class="s1"> Laporan Penjualan Hari Ini&lt;/h3&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="report-grid"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;small&gt;Total Omzet&lt;/small&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div id="rep-omzet" style="font-size: 1.5em; font-weight: bold;"&gt;Rp 0&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;small&gt;Tunai / QRIS&lt;/small&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div id="rep-split" style="font-size: 1em;"&gt;Rp 0 / Rp 0&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;small&gt;Total Terjual&lt;/small&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div id="rep-items" style="font-size: 1.5em; font-weight: bold;"&gt;0 Porsi&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">&lt;script&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>let keranjang = [];</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>let totalHarga = 0;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// Data Laporan (Global)</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>let laporan = {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>omzet: 0,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>tunai: 0,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>qris: 0,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>porsi: 0</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>};</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>function tambahItem(nama, harga) {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>let hargaFinal = harga;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>let topping = [];</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>document.querySelectorAll('.topping:checked').forEach(t =&gt; {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>hargaFinal += parseInt(t.value);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>topping.push(t.getAttribute('data-name'));</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>});</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const itemNama = nama + (topping.length &gt; 0 ? " +" + topping.join(",") : "");</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>keranjang.push({ nama: itemNama, harga: hargaFinal });</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>updateUI();</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>function updateUI() {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const list = document.getElementById('item-list');</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>list.innerHTML = '';</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>totalHarga = 0;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>keranjang.forEach(item =&gt; {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const div = document.createElement('div');</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>div.style.display = 'flex';</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>div.style.justifyContent = 'space-between';</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>div.innerHTML = `&lt;span&gt;${item.nama}&lt;/span&gt; &lt;span&gt;${item.harga.toLocaleString()}&lt;/span&gt;`;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>list.appendChild(div);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>totalHarga += item.harga;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>});</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>document.getElementById('total-text').textContent = "Rp " + totalHarga.toLocaleString();</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>document.getElementById('waktu-struk').textContent = new Date().toLocaleString('id-ID');</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>hitungSemua();</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>function hitungSemua() {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const metode = document.getElementById('metode').value;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const uangBayar = parseInt(document.getElementById('uang-bayar').value) || 0;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>document.getElementById('metode-text').textContent = metode;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>if(metode === "QRIS") {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById('uang-bayar').style.display = 'none';</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById('label-bayar').style.display = 'none';</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById('bayar-text').textContent = totalHarga.toLocaleString();</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById('kembali-text').textContent = "0";</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>} else {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById('uang-bayar').style.display = 'block';</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById('label-bayar').style.display = 'block';</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById('bayar-text').textContent = uangBayar.toLocaleString();</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>let kembali = uangBayar - totalHarga;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById('kembali-text').textContent = (kembali &gt; 0 ? kembali : 0).toLocaleString();</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>function selesaikanTransaksi() {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>if(keranjang.length === 0) return alert("Belum ada pesanan!");</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const metode = document.getElementById('metode').value;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// Update data laporan</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>laporan.omzet += totalHarga;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>laporan.porsi += keranjang.length;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>if(metode === "Tunai") laporan.tunai += totalHarga;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>else laporan.qris += totalHarga;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>updateLaporan();</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>window.print(); // Cetak Struk</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>resetTransaksi(); // Kosongkan kasir untuk pelanggan berikutnya</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>function updateLaporan() {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>document.getElementById('rep-omzet').textContent = "Rp " + laporan.omzet.toLocaleString();</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>document.getElementById('rep-split').textContent = `Tunai: ${laporan.tunai.toLocaleString()} | QRIS: ${laporan.qris.toLocaleString()}`;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>document.getElementById('rep-items').textContent = laporan.porsi + " Porsi";</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>function resetTransaksi() {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>keranjang = [];</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>document.getElementById('uang-bayar').value = '';</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>updateUI();</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p1"><span class="s1">&lt;/script&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+
+<div class="container">
+    <div class="card">
+        <h2>🍞 Menu Roti Bakar</h2>
+        <div class="pembayaran">
+            <strong>Topping:</strong><br>
+            <label><input type="checkbox" class="topping" value="3000" data-name="Keju"> Keju (+3k)</label>
+            <label style="margin-left:10px;"><input type="checkbox" class="topping" value="2000" data-name="Susu"> Susu (+2k)</label>
+        </div>
+        
+        <div class="menu-grid">
+            <button class="btn-menu" onclick="tambahItem('Roti Cokelat', 15000)"><span>Roti Cokelat</span> <b>15k</b></button>
+            <button class="btn-menu" onclick="tambahItem('Roti Keju', 17000)"><span>Roti Keju</span> <b>17k</b></button>
+            <button class="btn-menu" onclick="tambahItem('Roti Spesial', 25000)"><span>Roti Spesial</span> <b>25k</b></button>
+        </div>
+
+        <div class="pembayaran">
+            <label>Metode Pembayaran:</label>
+            <select id="metode" onchange="hitungSemua()">
+                <option value="Tunai">Tunai</option>
+                <option value="QRIS">QRIS</option>
+            </select>
+            <div id="box-tunai">
+                <label>Uang Tunai Diterima:</label>
+                <input type="number" id="uang-bayar" placeholder="0" oninput="hitungSemua()">
+            </div>
+        </div>
+        <button class="btn-action" style="background:#eee" onclick="resetKeranjang()">Hapus Pesanan</button>
+    </div>
+
+    <div class="card">
+        <h2>🧾 Struk Preview</h2>
+        <div id="area-cetak" class="struk-preview">
+            <div style="text-align:center; text-transform: uppercase;">
+                <strong>Roti Bakar Jaya</strong><br>
+                <small id="waktu-struk">-</small>
+            </div>
+            <hr>
+            <div id="item-list"></div>
+            <hr>
+            <div style="text-align:right">
+                TOTAL: <strong id="total-text">Rp 0</strong><br>
+                <span id="detail-pembayaran-struk">
+                    Metode: <span id="metode-text">Tunai</span><br>
+                    Bayar: <span id="bayar-text">0</span><br>
+                    Kembali: <strong id="kembali-text">0</strong>
+                </span>
+            </div>
+        </div>
+        <button class="btn-action btn-print" onclick="simpanDanCetak()">Selesaikan & Cetak Struk</button>
+    </div>
+
+    <div class="report-box">
+        <h3>📊 Laporan Penjualan (Tersimpan di Perangkat)</h3>
+        <div class="report-grid">
+            <div><small>Total Omzet</small><div id="rep-omzet" style="font-size: 1.2em; font-weight: bold;">Rp 0</div></div>
+            <div><small>Porsi Terjual</small><div id="rep-items" style="font-size: 1.2em; font-weight: bold;">0</div></div>
+            <div><small>Tunai / QRIS</small><div id="rep-split" style="font-size: 0.9em;">0 / 0</div></div>
+        </div>
+        <button class="btn-clear-data" onclick="hapusSemuaData()">Reset Laporan Hari Ini</button>
+    </div>
+</div>
+
+<script>
+    let keranjang = [];
+    let totalHarga = 0;
+    
+    // Memuat data dari LocalStorage saat halaman dibuka
+    let laporan = JSON.parse(localStorage.getItem('laporanRoti')) || { omzet: 0, tunai: 0, qris: 0, porsi: 0 };
+
+    window.onload = updateLaporanUI;
+
+    function tambahItem(nama, harga) {
+        let hargaFinal = harga;
+        let topping = [];
+        document.querySelectorAll('.topping:checked').forEach(t => {
+            hargaFinal += parseInt(t.value);
+            topping.push(t.getAttribute('data-name'));
+        });
+
+        keranjang.push({ nama: nama + (topping.length > 0 ? " +" + topping.join(",") : ""), harga: hargaFinal });
+        updateKeranjangUI();
+    }
+
+    function updateKeranjangUI() {
+        const list = document.getElementById('item-list');
+        list.innerHTML = '';
+        totalHarga = 0;
+        keranjang.forEach(item => {
+            list.innerHTML += `<div style="display:flex; justify-content:space-between"><span>${item.nama}</span><span>${item.harga.toLocaleString()}</span></div>`;
+            totalHarga += item.harga;
+        });
+        document.getElementById('total-text').textContent = "Rp " + totalHarga.toLocaleString();
+        document.getElementById('waktu-struk').textContent = new Date().toLocaleString('id-ID');
+        hitungSemua();
+    }
+
+    function hitungSemua() {
+        const metode = document.getElementById('metode').value;
+        const uangBayar = parseInt(document.getElementById('uang-bayar').value) || 0;
+        document.getElementById('metode-text').textContent = metode;
+        
+        if(metode === "QRIS") {
+            document.getElementById('box-tunai').style.display = 'none';
+            document.getElementById('bayar-text').textContent = totalHarga.toLocaleString();
+            document.getElementById('kembali-text').textContent = "0";
+        } else {
+            document.getElementById('box-tunai').style.display = 'block';
+            document.getElementById('bayar-text').textContent = uangBayar.toLocaleString();
+            let kembali = uangBayar - totalHarga;
+            document.getElementById('kembali-text').textContent = (kembali > 0 ? kembali : 0).toLocaleString();
+        }
+    }
+
+    function simpanDanCetak() {
+        if(keranjang.length === 0) return alert("Keranjang masih kosong!");
+        
+        const metode = document.getElementById('metode').value;
+        laporan.omzet += totalHarga;
+        laporan.porsi += keranjang.length;
+        if(metode === "Tunai") laporan.tunai += totalHarga;
+        else laporan.qris += totalHarga;
+
+        // Simpan ke LocalStorage
+        localStorage.setItem('laporanRoti', JSON.stringify(laporan));
+        
+        updateLaporanUI();
+        window.print();
+        resetKeranjang();
+    }
+
+    function updateLaporanUI() {
+        document.getElementById('rep-omzet').textContent = "Rp " + laporan.omzet.toLocaleString();
+        document.getElementById('rep-items').textContent = laporan.porsi + " Porsi";
+        document.getElementById('rep-split').textContent = `T: ${laporan.tunai.toLocaleString()} | Q: ${laporan.qris.toLocaleString()}`;
+    }
+
+    function resetKeranjang() {
+        keranjang = [];
+        document.getElementById('uang-bayar').value = '';
+        updateKeranjangUI();
+    }
+
+    function hapusSemuaData() {
+        if(confirm("Hapus semua catatan penjualan?")) {
+            localStorage.removeItem('laporanRoti');
+            location.reload();
+        }
+    }
+</script>
 </body>
 </html>
