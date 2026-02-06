@@ -1,0 +1,31 @@
+{
+  "publications": [
+    {
+      "title": "LBH EZRA Dampingi Korban Kekerasan dalam Rumah Tangga",
+      "source": "Media Hukum Indonesia",
+      "date": "2024-12-15",
+      "thumbnail": "images/news/sample-news-1.jpg",
+      "url": "https://example.com/berita-1",
+      "excerpt": "Tim advokat LBH EZRA berhasil mendampingi korban KDRT hingga ke tingkat pengadilan dan memenangkan perkara.",
+      "category": "Kasus"
+    },
+    {
+      "title": "Penyuluhan Hukum Gratis di Kelurahan Sukamaju",
+      "source": "Kompas.com",
+      "date": "2024-11-28",
+      "thumbnail": "images/news/sample-news-2.jpg",
+      "url": "https://example.com/berita-2",
+      "excerpt": "LBH EZRA mengadakan penyuluhan hukum gratis bagi masyarakat kurang mampu di wilayah Sukamaju.",
+      "category": "Kegiatan"
+    },
+    {
+      "title": "Bantuan Hukum untuk Buruh Migran Indonesia",
+      "source": "Tempo.co",
+      "date": "2024-10-10",
+      "thumbnail": "images/news/sample-news-3.jpg",
+      "url": "https://example.com/berita-3",
+      "excerpt": "LBH EZRA berkolaborasi dengan organisasi internasional untuk memberikan bantuan hukum kepada buruh migran.",
+      "category": "Kasus"
+    }
+  ]
+}
